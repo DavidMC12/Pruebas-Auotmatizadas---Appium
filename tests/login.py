@@ -40,10 +40,10 @@ def login(driver):
 
             # Ingresar credenciales
             email_field.click()
-            email_field.send_keys('pasajero@mail.dev')
+            email_field.send_keys('pasajero@mail.prod')
 
             password_field.click()
-            password_field.send_keys('123456')
+            password_field.send_keys('12345678')
             driver.back()  # Ocultar el teclado
 
             # Hacer clic en el botón de login

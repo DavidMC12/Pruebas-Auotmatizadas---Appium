@@ -15,21 +15,21 @@ def booking_request(driver):
     LOCATION_PERMISSION_BUTTON_ID = "com.android.packageinstaller:id/permission_allow_button"
     POPUP_CLOSE_BUTTON_ID = "co.picap.passenger:id/collapse_button"
     
-    SERVICE_MOTO_SELECTOR_ID = 'Moto\ncon conductor'
+    SERVICE_MOTOVIP_SELECTOR_ID = 'Moto VIP'
     DESTINATION_SELECTOR_XPATH = '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View/android.widget.EditText[2]'
     INPUT_ADDRESS = 'hospital de Kennedy'
-    CONFIRMATION_BUTTON_ID = 'Seleccionar Moto'
+    CONFIRM_SERVICE_ID = 'Seleccionar Moto'
+    CONTRACT_CONFIRMATION_ID = 'Confirmar'
     REQUEST_SERVICE_BUTTON_ID = 'Confirmar y pedir'
     CANCEL_SERVICE_X_ID = 'Cancelar viaje'
     TESTING_APP_OP = 'Solo probando la aplicación'
     CANCEL_SERVICE_BUTTON_ID = 'Cancelar servicio'
     CANCEL_CONFIRMATION_OP = 'Aceptar'
-    CONTRACT_CONFIRMATION_ID = 'Confirmar'
     
     try:
         try:
             # Seleccionar el servicio de moto
-            service_moto = driver.find_element(AppiumBy.ACCESSIBILITY_ID, SERVICE_MOTO_SELECTOR_ID)
+            service_moto = driver.find_element(AppiumBy.ACCESSIBILITY_ID, SERVICE_MOTOVIP_SELECTOR_ID)
             service_moto.click()
             
             # Ingresar la dirección de destino
@@ -45,7 +45,7 @@ def booking_request(driver):
             # Filtrar aquellas sugerencias que tengan un content-desc no vacío
             suggestions_with_desc = [s for s in suggestions if s.get_attribute('content-desc')]
 
-            print("Sugerencias de direcciones: ", [s.get_attribute('content-desc') for s in suggestions_with_desc])
+            #print("Sugerencias de direcciones: ", [s.get_attribute('content-desc') for s in suggestions_with_desc])
 
             # Inicializar variables para la mejor coincidencia
             max_similarity = 0
@@ -73,7 +73,7 @@ def booking_request(driver):
             time.sleep(5)
             
             # Confirmar la solicitud de Booking
-            confirmation_button = driver.find_element(AppiumBy.ACCESSIBILITY_ID, CONFIRMATION_BUTTON_ID)
+            confirmation_button = driver.find_element(AppiumBy.ACCESSIBILITY_ID, CONFIRM_SERVICE_ID)
             confirmation_button.click()
 
             time.sleep(1)
@@ -81,7 +81,7 @@ def booking_request(driver):
             contract_confirmation = driver.find_element(AppiumBy.ACCESSIBILITY_ID, CONTRACT_CONFIRMATION_ID)
             contract_confirmation.click()
             
-            time.sleep(5)
+            time.sleep(4)
 
             request_service_button = driver.find_element(AppiumBy.ACCESSIBILITY_ID, REQUEST_SERVICE_BUTTON_ID)
             request_service_button.click()
@@ -90,6 +90,7 @@ def booking_request(driver):
 
             print("Solicitud de Booking confirmada con éxito!!")
 
+            # ! Swipe para cancelar el servicio
             driver.swipe(start_x=driver.get_window_size()['width'] // 2, start_y=driver.get_window_size()['height'] * 0.9, end_x=driver.get_window_size()['width'] // 2, end_y=driver.get_window_size()['height'] * 0.1, duration=500)
             time.sleep(1)
             
