@@ -31,12 +31,13 @@ def booking_request(driver):
     
     CREATE_PIBOX_BUTTON_SELECTOR_ID = 'Crear'
     REQUEST_BUTTON_ID = 'Solicitar'
+    REQUEST_BUTTON_ID_2 = 'Solicitar'
     
     # ? Cancelar servicio
     CANCEL_SERVICE_X_ID = 'Cancelar viaje'
+    CONFIRMATION_POPUP = 'Si'
     TESTING_APP_OP = 'Solo probando la aplicación'
-    CANCEL_SERVICE_BUTTON_ID = 'Cancelar servicio'
-    CANCEL_CONFIRMATION_OP = 'Aceptar'
+    CANCELATION_BUTTON = 'Aceptar'
     
     try:
         try:
@@ -100,7 +101,7 @@ def booking_request(driver):
             confirmation_button = driver.find_element(AppiumBy.ACCESSIBILITY_ID, CONFIRM_SERVICE_ID)
             confirmation_button.click()
             
-            time.sleep(4)
+            time.sleep(2)
             
             # ! Formulario de paquete
             # * Indicaciones
@@ -112,7 +113,6 @@ def booking_request(driver):
             target = driver.find_element(AppiumBy.XPATH, TARGET_SELECTOR_XPATH)
             target.click()
             target.send_keys("Juan Perez")
-            driver.back()
             
             # * Teléfono
             phone = driver.find_element(AppiumBy.XPATH, PHONE_SELECTOR_XPATH)
@@ -133,7 +133,7 @@ def booking_request(driver):
             package_size = driver.find_element(AppiumBy.ACCESSIBILITY_ID, PACKAGE_SIZE_SELECTOR_ID)
             package_size.click()
             
-            time.sleep(4)
+            time.sleep(1)
             
             # Crear el servicio de Pibox
             create_pibox_service_button = driver.find_element(AppiumBy.ACCESSIBILITY_ID, CREATE_PIBOX_BUTTON_SELECTOR_ID)
@@ -141,29 +141,35 @@ def booking_request(driver):
             time.sleep(1)
             
             # Solicitar el servicio de Pibox
-            # request_service_button = driver.find_element(AppiumBy.ACCESSIBILITY_ID, REQUEST_BUTTON_ID)
-            # request_service_button.click()
+            request_service_button = driver.find_element(AppiumBy.ACCESSIBILITY_ID, REQUEST_BUTTON_ID)
+            request_service_button.click()
+            time.sleep(2)
             
-            # time.sleep(7)
+            # Confirmacion de final de solicitud
+            request_service_button_2 = driver.find_element(AppiumBy.ACCESSIBILITY_ID, REQUEST_BUTTON_ID_2)
+            request_service_button_2.click()
+            time.sleep(2)
             
-            # print("Solicitud de Booking confirmada con éxito!!")
+            print("Solicitud de Booking confirmada con éxito!!")
             
             # # ! Swipe para cancelar el servicio
-            # driver.swipe(start_x=driver.get_window_size()['width'] // 2, start_y=driver.get_window_size()['height'] * 0.9, end_x=driver.get_window_size()['width'] // 2, end_y=driver.get_window_size()['height'] * 0.1, duration=500)
-            # time.sleep(1)
+            driver.swipe(start_x=driver.get_window_size()['width'] // 2, start_y=driver.get_window_size()['height'] * 0.9, end_x=driver.get_window_size()['width'] // 2, end_y=driver.get_window_size()['height'] * 0.1, duration=500)
+            time.sleep(1)
             
-            # # Cancelar el servicio
-            # cancel_service = driver.find_element(AppiumBy.ACCESSIBILITY_ID, CANCEL_SERVICE_X_ID)
-            # cancel_service.click()
+            # Cancelar el servicio
+            cancel_service = driver.find_element(AppiumBy.ACCESSIBILITY_ID, CANCEL_SERVICE_X_ID)
+            cancel_service.click()
             
-            # testing_app_op = driver.find_element(AppiumBy.ACCESSIBILITY_ID, TESTING_APP_OP)
-            # testing_app_op.click()
+            pop_up_close = driver.find_element(AppiumBy.ACCESSIBILITY_ID, CONFIRMATION_POPUP)
+            pop_up_close.click()
             
-            # cancel_service_button = driver.find_element(AppiumBy.ACCESSIBILITY_ID, CANCEL_SERVICE_BUTTON_ID)
-            # cancel_service_button.click()
+            testing_app_op = driver.find_element(AppiumBy.ACCESSIBILITY_ID, TESTING_APP_OP)
+            testing_app_op.click()
             
-            # cancel_confirmation_op = driver.find_element(AppiumBy.ACCESSIBILITY_ID, CANCEL_CONFIRMATION_OP)
-            # cancel_confirmation_op.click()
+            cancel_service_button = driver.find_element(AppiumBy.ACCESSIBILITY_ID, CANCELATION_BUTTON)
+            cancel_service_button.click()
+            time.sleep(1)
+            driver.back()
             
             print("Servicio cancelado con éxito!!")
         
