@@ -1,6 +1,6 @@
 # main.py
 from setup import driver_setup as ds
-from tests import login, service_moto_request, service_motovip_request, signup, service_pibox_request
+from tests import login, service_moto_request, service_motovip_request, signup, service_pibox_request, programed_service_moto
 
 def main():
     # Inicializar el driver
@@ -19,7 +19,10 @@ def main():
     #service_motovip_request.booking_request(driver)
 
     # Pedir un Servicio de Pibox
-    service_pibox_request.booking_request(driver)
+    #service_pibox_request.booking_request(driver)
+    
+    # Servicio de Moto programado
+    programed_service_moto.booking_request(driver)
     
 if __name__ == "__main__":
     main()
