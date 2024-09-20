@@ -21,6 +21,8 @@ def booking_request(driver):
     CONFIRM_SERVICE_ID = 'Seleccionar Moto'
     CONTRACT_CONFIRMATION_ID = 'Confirmar'
     REQUEST_SERVICE_BUTTON_ID = 'Confirmar y pedir'
+    
+    
     CANCEL_SERVICE_X_ID = 'Cancelar viaje'
     TESTING_APP_OP = 'Solo probando la aplicación'
     CANCEL_SERVICE_BUTTON_ID = 'Cancelar servicio'
