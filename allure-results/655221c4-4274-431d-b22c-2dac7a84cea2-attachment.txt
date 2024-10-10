@@ -1,0 +1,9 @@
+No se solicitaron permisos de ubicación.
+No se encontró ningún popup. Continuando...
+Error al intentar localizar un elemento de login: Message: An element could not be located on the page using the given search parameters.; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception
+Stacktrace:
+NoSuchElementError: An element could not be located on the page using the given search parameters.
+    at AndroidUiautomator2Driver.findElOrEls (C:\Users\dm200\.appium\node_modules\appium-uiautomator2-driver\node_modules\appium-android-driver\lib\commands\find.ts:86:11)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at AndroidUiautomator2Driver.findElOrElsWithProcessing (C:\Users\dm200\AppData\Roaming\npm\node_modules\appium\node_modules\@appium\base-driver\lib\basedriver\commands\find.ts:60:12)
+    at AndroidUiautomator2Driver.findElement (C:\Users\dm200\AppData\Roaming\npm\node_modules\appium\node_modules\@appium\base-driver\lib\basedriver\commands\find.ts:75:12).

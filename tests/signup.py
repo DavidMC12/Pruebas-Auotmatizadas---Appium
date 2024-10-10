@@ -100,10 +100,10 @@ def signUp(driver):
             name_field.send_keys('Usuario Prueba')
             
             last_name_field.click()
-            last_name_field.send_keys('Automatizado Dev')
+            last_name_field.send_keys('Automatizado Prod')
             
             email_field.click()
-            email_field.send_keys('u.aut9@mail.dev')
+            email_field.send_keys('u.aut2@mail.prod')
             
             password_field.click()
             password_field.send_keys('123456')
@@ -116,7 +116,7 @@ def signUp(driver):
             colombia.click()
             
             phone_filed.click()
-            phone_filed.send_keys('3214445559')
+            phone_filed.send_keys('3214445552')
             driver.back()
             
             # Setear sexo hombre
@@ -134,7 +134,25 @@ def signUp(driver):
                 print("Popup de verificación encontrado y cerrado!!")
             except NoSuchElementException:
                 print("No se encontró ningún popup. Continuando...")
-
+            time.sleep(3)
+            
+            # ? 7.2. Manejo de pop-up (Omitir verificación del usuario, seguridad)
+            # Obtener el tamaño de la pantalla del dispositivo
+            screen_size = driver.get_window_size()
+            screen_width = screen_size['width']
+            screen_height = screen_size['height']
+            
+            x_relative = 0.5  # Ejemplo: 50% del ancho de la pantalla
+            y_relative = 0.85  # Ejemplo: 85% de la altura de la pantalla
+            
+            # Convertir las coordenadas relativas a coordenadas absolutas
+            x = int(screen_width * x_relative)
+            y = int(screen_height * y_relative)
+            
+            driver.tap([(x, y)], 500)
+            print(f"Se hizo clic en las coordenadas: X={x}, Y={y}")
+            time.sleep(2)            
+            
             # ? 8. Verificar si el registro fue exitoso
             try:
                 driver.find_element(AppiumBy.ACCESSIBILITY_ID, HOME_SCREEN_ACCESSIBILITY_ID)
