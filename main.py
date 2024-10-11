@@ -33,10 +33,10 @@ def main():
     # test_login.test_login_flow(driver)
 
     # Ejecutar otros procesos comentados si es necesario
-    signup.signUp(driver)
+    # signup.signUp(driver)
     # service_moto_request.booking_request(driver)
     # service_motovip_request.booking_request(driver)
-    # service_pibox_request.booking_request(driver)
+    service_pibox_request.booking_request(driver)
     # programed_service_moto.booking_request(driver)
 
     # Finalizar el driver

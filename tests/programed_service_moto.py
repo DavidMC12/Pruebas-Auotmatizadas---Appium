@@ -100,7 +100,7 @@ def booking_request(driver):
             else:
                 print("No se encontró una coincidencia adecuada.")
             
-            time.sleep(4)
+            time.sleep(5)
             
             # ! Elementos de la pantalla de selección de servicio
             

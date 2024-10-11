@@ -37,7 +37,7 @@ def booking_request(driver):
             destination_field.click()
             destination_field.send_keys(INPUT_ADDRESS)
             driver.back()  # Ocultar el teclado
-            time.sleep(3)  # Esperar que aparezcan las sugerencias dinámicas
+            time.sleep(5)  # Esperar que aparezcan las sugerencias dinámicas
             
             # Capturar las sugerencias dinámicas de direcciones a través del atributo content-desc
             suggestions = driver.find_elements(AppiumBy.CLASS_NAME, 'android.widget.ImageView')
