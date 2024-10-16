@@ -161,7 +161,7 @@ def signUp(driver):
                 print("Registro fallido o no se encontró el elemento de la pantalla principal.")
         
         except NoSuchElementException as e:
-            print(f"Error al intentar localizar un elemento de login: {e}.")
+            print(f"Error al intentar localizar un elemento del registro: {e}.")
 
     except Exception as e:
         print(f"Error al ejecutar el caso de prueba: {e}.")

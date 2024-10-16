@@ -1,7 +1,7 @@
 import pytest
 import allure
 from setup import driver_setup as ds
-from tests import service_moto_request, service_motovip_request, signup, service_pibox_request, programed_service_moto, test_login
+from tests import test_add_new_vehicle, service_moto_request, service_motovip_request, signup, service_pibox_request, programed_service_moto, test_login
 
 # Caso de prueba para pytest
 # @pytest.mark.allure
@@ -36,8 +36,9 @@ def main():
     # signup.signUp(driver)
     # service_moto_request.booking_request(driver)
     # service_motovip_request.booking_request(driver)
-    service_pibox_request.booking_request(driver)
+    # service_pibox_request.booking_request(driver)
     # programed_service_moto.booking_request(driver)
+    test_add_new_vehicle.addNewVehicle(driver)
 
     # Finalizar el driver
     # driver.quit()
