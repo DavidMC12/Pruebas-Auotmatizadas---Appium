@@ -1,7 +1,7 @@
 import pytest
 import allure
 from setup import driver_setup as ds
-from tests import test_add_new_vehicle, service_moto_request, service_motovip_request, signup, service_pibox_request, programed_service_moto, test_login
+from tests import test_chat_central, test_add_new_vehicle, service_moto_request, service_motovip_request, signup, service_pibox_request, programed_service_moto, test_login
 
 # Caso de prueba para pytest
 # @pytest.mark.allure
@@ -12,7 +12,7 @@ from tests import test_add_new_vehicle, service_moto_request, service_motovip_re
 #     # Ejecutar el proceso de login
 #     with allure.step("Ejecutar flujo de login"):
 #         test_login.test_login_flow(driver)
-    
+
 #     # Finalizar driver después de las pruebas
 #     driver.quit()
 
@@ -38,7 +38,8 @@ def main():
     # service_motovip_request.booking_request(driver)
     # service_pibox_request.booking_request(driver)
     # programed_service_moto.booking_request(driver)
-    test_add_new_vehicle.addNewVehicle(driver)
+    # test_add_new_vehicle.addNewVehicle(driver)
+    test_chat_central.select_chat_option(driver)
 
     # Finalizar el driver
     # driver.quit()
