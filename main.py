@@ -39,7 +39,7 @@ def main():
     # service_pibox_request.booking_request(driver)
     # programed_service_moto.booking_request(driver)
     # test_add_new_vehicle.addNewVehicle(driver)
-    test_chat_central.select_chat_option(driver)
+    test_chat_central.main(driver)
 
     # Finalizar el driver
     # driver.quit()
