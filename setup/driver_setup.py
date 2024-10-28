@@ -24,8 +24,9 @@ def init_driver():
     options.app_package = "co.picap.passenger"
     options.app_activity = "co.picap.passenger.MainActivity"
     options.no_reset = True
+    options.new_command_timeout = 300  # Espera de 5 minutos (300 segundos)
 
     # Iniciar y devolver el driver de Appium
     driver = webdriver.Remote('http://localhost:4723', options=options)
-    driver.implicitly_wait(1)  # Establecer tiempo de espera implícito
+    driver.implicitly_wait(0.2)  # Establecer tiempo de espera implícito
     return driver
