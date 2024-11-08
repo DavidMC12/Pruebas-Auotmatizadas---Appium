@@ -1,0 +1,62 @@
+name: Android Automation Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  android-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v2
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+
+      - name: Download and set up Android SDK
+        uses: android-actions/setup-android@v2
+        with:
+          api-level: 30  # Cambia el nivel de API según tus necesidades
+          target: android-30
+          arch: x86_64
+          emulator: true
+          ndk: true
+
+      - name: Start Android Emulator
+        run: |
+          $ANDROID_HOME/emulator/emulator -avd test -no-snapshot -no-audio -no-window &
+          adb wait-for-device
+          adb shell settings put global window_animation_scale 0
+          adb shell settings put global transition_animation_scale 0
+          adb shell settings put global animator_duration_scale 0
+          adb shell input keyevent 82
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run Appium server
+        run: |
+          npm install -g appium
+          appium &
+
+      - name: Run Android automation tests
+        env:
+          DEVICE_NAME: "Android Emulator" # Nombre del dispositivo que configuraste en local
+          PLATFORM_VERSION: "11"          # Versión de Android de tu emulador
+        run: |
+          python -m unittest discover -s tests # Reemplaza 'tests' por la carpeta de tus pruebas
