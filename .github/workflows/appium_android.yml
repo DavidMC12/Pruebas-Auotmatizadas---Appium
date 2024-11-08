@@ -13,12 +13,15 @@ jobs:
     runs-on: self-hosted  # Usa el self-hosted runner en tu máquina local
 
     steps:
-      # 1. Descarga el repositorio usando el token almacenado en secrets
-      - name: Check out the repository
-        uses: actions/checkout@v2
-        with:
-            token: ${{ secrets.MY_GITHUB_TOKEN }}
-
+      # 1. Configura el remote URL manualmente y clona el repositorio
+      - name: Set remote URL to HTTPS and Check Out Repository
+        run: |
+          git init
+          git remote add origin https://github.com/DavidMC12/Pruebas_Automatizadas_Appium.git
+          git fetch origin
+          git checkout main
+        env:
+          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
 
       # 2. Configura Java JDK 11
       - name: Set up JDK 11
