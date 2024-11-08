@@ -45,10 +45,10 @@ jobs:
           echo "Dependencies installed."
 
       # 5. Descarga el archivo APK
-      - name: Download APK
+      - name: Use APK from Repository
         run: |
-          echo "Starting APK download..."
-          curl -L -o picap.apk "https://d.apkpure.com/b/XAPK/co.picap.passenger?version=latest"
+          echo "Downloading APK from Google Drive..."
+          curl -L -o picap.apk "https://www.dropbox.com/scl/fi/n5i0mnh4wm37dbn32snsd/picap.apk?rlkey=cuz3zf6jb9sytygouwao4b9l7&st=be3mv69e&dl=1"
           echo "APK downloaded successfully."
 
       # 6. Instala el APK en el emulador o dispositivo específico
