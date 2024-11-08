@@ -56,8 +56,8 @@ jobs:
       # 6. Instala el APK en el emulador específico
       - name: Install APK on Emulator
         run: |
+          adb -s emulator-5554 install -t -g picap.apk  # Opción de instalación que concede permisos y permite la instalación de APKs no verificados
           echo "Installing APK on emulator..."
-          adb -s emulator-5554 install -r picap.apk  # Usa el ID del emulador
           echo "APK installed successfully on the emulator."
 
       # 7. Verifica la instalación del APK en el emulador
