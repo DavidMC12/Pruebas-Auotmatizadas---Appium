@@ -30,22 +30,22 @@ jobs:
         with:
           api-level: 30
           target: android-30
-          arch: arm64-v8a
+          arch: arm64-v8a  # Cambia la arquitectura a ARM
           emulator: true
           ndk: true
 
       # 4. Instala la imagen del sistema requerida
       - name: Install system image for emulator
         run: |
-          echo "Installing system image..."
-          yes | sdkmanager "system-images;android-30;default;x86_64"
+          echo "Installing ARM system image..."
+          yes | sdkmanager "system-images;android-30;default;arm64-v8a"
           echo "System image installed."
 
       # 5. Crea un nuevo emulador Android (AVD)
       - name: Create Android Emulator
         run: |
           echo "Creating Android emulator..."
-          echo "no" | avdmanager create avd -n test -k "system-images;android-30;default;x86_64" --force
+          echo "no" | avdmanager create avd -n test -k "system-images;android-30;default;arm64-v8a" --force
           echo "Android emulator created successfully."
 
       # 6. Inicia el emulador Android
