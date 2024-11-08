@@ -48,9 +48,9 @@ jobs:
       - name: Download APK from Dropbox
         run: |
           echo "Removing any previous APK..."
-          rm -f picap.apk
-          echo "Downloading APK from Dropbox..."
+          Remove-Item -Path picap.apk -Force
           curl -L -o picap.apk "https://www.dropbox.com/scl/fi/n5i0mnh4wm37dbn32snsd/picap.apk?rlkey=cuz3zf6jb9sytygouwao4b9l7&st=be3mv69e&dl=1"
+          echo "Downloading APK from Dropbox..."
           echo "APK downloaded successfully."
 
       # 6. Instala el APK en el emulador específico
