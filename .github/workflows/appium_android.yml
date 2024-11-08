@@ -24,7 +24,7 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
 
-      # 3. Configura el SDK de Android
+      # 3. Configura el SDK de Android e instala la imagen del sistema
       - name: Download and set up Android SDK
         uses: android-actions/setup-android@v2
         with:
@@ -34,14 +34,21 @@ jobs:
           emulator: true
           ndk: true
 
-      # 4. Crea un nuevo emulador Android (AVD)
+      # 4. Instala la imagen del sistema requerida
+      - name: Install system image for emulator
+        run: |
+          echo "Installing system image..."
+          yes | sdkmanager "system-images;android-30;default;x86_64"
+          echo "System image installed."
+
+      # 5. Crea un nuevo emulador Android (AVD)
       - name: Create Android Emulator
         run: |
           echo "Creating Android emulator..."
           echo "no" | avdmanager create avd -n test -k "system-images;android-30;default;x86_64" --force
           echo "Android emulator created successfully."
 
-      # 5. Inicia el emulador Android
+      # 6. Inicia el emulador Android
       - name: Start Android Emulator
         run: |
           echo "Starting Android emulator..."
@@ -53,13 +60,13 @@ jobs:
           adb shell input keyevent 82
           echo "Android emulator started successfully."
 
-      # 6. Configura Python
+      # 7. Configura Python
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
           python-version: '3.8'
 
-      # 7. Instala las dependencias del proyecto
+      # 8. Instala las dependencias del proyecto
       - name: Install dependencies
         run: |
           echo "Installing dependencies..."
@@ -67,27 +74,27 @@ jobs:
           pip install -r requirements.txt
           echo "Dependencies installed."
 
-      # 8. Descarga el archivo APK
+      # 9. Descarga el archivo APK
       - name: Download APK
         run: |
           echo "Starting APK download..."
           curl -L -o picap.apk "https://d.apkpure.com/b/XAPK/co.picap.passenger?version=latest"
           echo "APK downloaded successfully."
 
-      # 9. Espera para asegurar la descarga del APK
+      # 10. Espera para asegurar la descarga del APK
       - name: Wait for APK to be downloaded
         run: |
           echo "Waiting for APK to be downloaded..."
           sleep 20
 
-      # 10. Instala el APK en el emulador
+      # 11. Instala el APK en el emulador
       - name: Install APK on Emulator
         run: |
           echo "Installing APK on emulator..."
           adb install picap.apk
           echo "APK installed successfully."
 
-      # 11. Inicia el servidor de Appium
+      # 12. Inicia el servidor de Appium
       - name: Run Appium server
         run: |
           echo "Starting Appium server..."
@@ -95,7 +102,7 @@ jobs:
           appium &
           echo "Appium server started."
 
-      # 12. Ejecuta el caso de prueba específico
+      # 13. Ejecuta el caso de prueba específico
       - name: Run Specific Android Automation Test
         env:
           DEVICE_NAME: "Android Emulator"
