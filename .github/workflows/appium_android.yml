@@ -25,6 +25,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: '11'
+          distribution: 'temurin'  # Especifica la distribución de Java
 
       - name: Java JDK setup complete
         run: echo "Java JDK 11 installed successfully."
@@ -75,13 +76,13 @@ jobs:
       - name: Download APK
         run: |
           echo "Starting APK download..."
-          curl -L -o picap.apk "URL_DE_DESCARGA_DEL_APK"
+          curl -L -o picap.apk "https://d.apkpure.com/b/XAPK/co.picap.passenger?version=latest"
           echo "APK downloaded successfully."
 
       # 8. Espera para asegurar la descarga del APK
       - name: Wait for APK to be downloaded
         run: |
-          echo "Witing for APK to be downloaded..."
+          echo "Waiting for APK to be downloaded..."
           sleep 20
 
       # 9. Instala el APK en el emulador
@@ -106,5 +107,5 @@ jobs:
           PLATFORM_VERSION: "11"
         run: |
           echo "Running test_login.py..."
-          python .\main.py
+          python ./main.py
           echo "Test execution completed."
