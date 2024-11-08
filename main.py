@@ -30,7 +30,7 @@ def main():
     driver = ds.init_driver()
 
     # Ejecutar el proceso de login manualmente
-    # test_login.test_login_flow(driver)
+    test_login.test_login_flow(driver)
 
     # Ejecutar otros procesos comentados si es necesario
     # signup.signUp(driver)
@@ -43,7 +43,7 @@ def main():
     # ! test_grua_request.gura_request(driver)
     # test_bicitaxi_request.main(driver)
     # test_driver_register.main(driver)
-    test_accept_driver_services.main(driver)
+    # test_accept_driver_services.main(driver)
 
     # Finalizar el driver
     # driver.quit()

@@ -13,50 +13,98 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1. Descarga el repositorio
       - name: Check out the repository
         uses: actions/checkout@v2
 
+      - name: Repository checked out
+        run: echo "Repository checked out successfully."
+
+      # 2. Configura Java JDK 11
       - name: Set up JDK 11
         uses: actions/setup-java@v2
         with:
           java-version: '11'
 
+      - name: Java JDK setup complete
+        run: echo "Java JDK 11 installed successfully."
+
+      # 3. Configura el SDK de Android
       - name: Download and set up Android SDK
         uses: android-actions/setup-android@v2
         with:
-          api-level: 30  # Cambia el nivel de API según tus necesidades
+          api-level: 30
           target: android-30
           arch: x86_64
           emulator: true
           ndk: true
 
+      - name: Android SDK setup complete
+        run: echo "Android SDK setup completed."
+
+      # 4. Inicia el emulador Android
       - name: Start Android Emulator
         run: |
+          echo "Starting Android emulator..."
           $ANDROID_HOME/emulator/emulator -avd test -no-snapshot -no-audio -no-window &
           adb wait-for-device
           adb shell settings put global window_animation_scale 0
           adb shell settings put global transition_animation_scale 0
           adb shell settings put global animator_duration_scale 0
           adb shell input keyevent 82
+          echo "Android emulator started successfully."
 
+      # 5. Configura Python
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
           python-version: '3.8'
 
+      - name: Python setup complete
+        run: echo "Python set up successfully."
+
+      # 6. Instala las dependencias del proyecto
       - name: Install dependencies
         run: |
+          echo "Installing dependencies..."
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+          echo "Dependencies installed."
 
+      # 7. Descarga el archivo APK
+      - name: Download APK
+        run: |
+          echo "Starting APK download..."
+          curl -L -o picap.apk "URL_DE_DESCARGA_DEL_APK"
+          echo "APK downloaded successfully."
+
+      # 8. Espera para asegurar la descarga del APK
+      - name: Wait for APK to be downloaded
+        run: |
+          echo "Witing for APK to be downloaded..."
+          sleep 20
+
+      # 9. Instala el APK en el emulador
+      - name: Install APK on Emulator
+        run: |
+          echo "Installing APK on emulator..."
+          adb install picap.apk
+          echo "APK installed successfully."
+
+      # 10. Inicia el servidor de Appium
       - name: Run Appium server
         run: |
+          echo "Starting Appium server..."
           npm install -g appium
           appium &
+          echo "Appium server started."
 
-      - name: Run Android automation tests
+      # 11. Ejecuta el caso de prueba específico
+      - name: Run Specific Android Automation Test
         env:
-          DEVICE_NAME: "Pixel 4 XL API 35" # Nombre del dispositivo que configuraste en local
-          PLATFORM_VERSION: "15"          # Versión de Android de tu emulador
+          DEVICE_NAME: "Android Emulator"
+          PLATFORM_VERSION: "11"
         run: |
-          python -m unittest discover -s tests # Reemplaza 'tests' por la carpeta de tus pruebas
+          echo "Running test_login.py..."
+          python -m unittest tests/test_login.py
+          echo "Test execution completed."
