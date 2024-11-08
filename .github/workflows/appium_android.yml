@@ -56,7 +56,7 @@ jobs:
 
       - name: Run Android automation tests
         env:
-          DEVICE_NAME: "Android Emulator" # Nombre del dispositivo que configuraste en local
+          DEVICE_NAME: "Pixel 4 XL API 35" # Nombre del dispositivo que configuraste en local
           PLATFORM_VERSION: "15"          # Versión de Android de tu emulador
         run: |
           python -m unittest discover -s tests # Reemplaza 'tests' por la carpeta de tus pruebas
