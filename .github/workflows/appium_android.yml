@@ -13,9 +13,11 @@ jobs:
     runs-on: self-hosted  # Usa el self-hosted runner en tu máquina local
 
     steps:
-      # 1. Descarga el repositorio
+      # 1. Descarga el repositorio usando el token almacenado en secrets
       - name: Check out the repository
         uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.MY_GITHUB_TOKEN }}
 
       # 2. Configura Java JDK 11
       - name: Set up JDK 11
