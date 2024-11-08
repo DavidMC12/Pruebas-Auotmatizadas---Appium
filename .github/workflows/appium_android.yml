@@ -106,5 +106,5 @@ jobs:
           PLATFORM_VERSION: "11"
         run: |
           echo "Running test_login.py..."
-          python -m unittest tests/test_login.py
+          python .\main.py
           echo "Test execution completed."
