@@ -44,21 +44,29 @@ jobs:
           pip install -r requirements.txt
           echo "Dependencies installed."
 
-      # 5. Descarga el archivo APK
-      - name: Use APK from Repository
+      # 5. Descarga el archivo APK desde Dropbox
+      - name: Download APK from Dropbox
         run: |
-          echo "Downloading APK from Google Drive..."
+          echo "Removing any previous APK..."
+          rm -f picap.apk
+          echo "Downloading APK from Dropbox..."
           curl -L -o picap.apk "https://www.dropbox.com/scl/fi/n5i0mnh4wm37dbn32snsd/picap.apk?rlkey=cuz3zf6jb9sytygouwao4b9l7&st=be3mv69e&dl=1"
           echo "APK downloaded successfully."
 
-      # 6. Instala el APK en el emulador o dispositivo específico
-      - name: Install APK on Specific Emulator or Device
+      # 6. Instala el APK en el emulador específico
+      - name: Install APK on Emulator
         run: |
-          echo "Installing APK on emulator or device..."
-          adb -s emulator-5554 install -r picap.apk  # Reemplaza <DEVICE_ID> con el ID específico de tu dispositivo/emulador
-          echo "APK installed successfully."
+          echo "Installing APK on emulator..."
+          adb -s emulator-5554 install -r picap.apk  # Usa el ID del emulador
+          echo "APK installed successfully on the emulator."
 
-      # 7. Inicia el servidor de Appium
+      # 7. Verifica la instalación del APK en el emulador
+      - name: Verify APK Installation
+        run: |
+          echo "Verifying APK installation on emulator..."
+          adb -s emulator-5554 shell pm list packages | grep "co.picap.passenger" && echo "APK is installed on the emulator."
+
+      # 8. Inicia el servidor de Appium
       - name: Run Appium server
         run: |
           echo "Starting Appium server..."
@@ -66,7 +74,7 @@ jobs:
           appium &  # Inicia Appium en segundo plano
           echo "Appium server started."
 
-      # 8. Ejecuta el caso de prueba específico con Appium
+      # 9. Ejecuta el caso de prueba específico con Appium
       - name: Run Specific Android Automation Test
         env:
           DEVICE_NAME: "Android Emulator"
