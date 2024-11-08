@@ -51,11 +51,11 @@ jobs:
           curl -L -o picap.apk "https://d.apkpure.com/b/XAPK/co.picap.passenger?version=latest"
           echo "APK downloaded successfully."
 
-      # 6. Instala el APK en el emulador o dispositivo
-      - name: Install APK on Emulator or Device
+      # 6. Instala el APK en el emulador o dispositivo específico
+      - name: Install APK on Specific Emulator or Device
         run: |
           echo "Installing APK on emulator or device..."
-          adb install -r picap.apk  # -r para reemplazar si ya está instalado
+          adb -s emulator-5554 install -r picap.apk  # Reemplaza <DEVICE_ID> con el ID específico de tu dispositivo/emulador
           echo "APK installed successfully."
 
       # 7. Inicia el servidor de Appium
