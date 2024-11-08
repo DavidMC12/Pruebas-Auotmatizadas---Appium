@@ -1,4 +1,4 @@
-name: Android Automation Tests
+name: Android Automation Tests on Local Emulator
 
 on:
   push:
@@ -10,7 +10,7 @@ on:
 
 jobs:
   android-tests:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted  # Usa el self-hosted runner en tu máquina local
 
     steps:
       # 1. Descarga el repositorio
@@ -24,49 +24,13 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
 
-      # 3. Configura el SDK de Android e instala la imagen del sistema
-      - name: Download and set up Android SDK
-        uses: android-actions/setup-android@v2
-        with:
-          api-level: 30
-          target: android-30
-          arch: arm64-v8a  # Cambia la arquitectura a ARM
-          emulator: true
-          ndk: true
-
-      # 4. Instala la imagen del sistema requerida
-      - name: Install system image for emulator
-        run: |
-          echo "Installing ARM system image..."
-          yes | sdkmanager "system-images;android-30;default;arm64-v8a"
-          echo "System image installed."
-
-      # 5. Crea un nuevo emulador Android (AVD)
-      - name: Create Android Emulator
-        run: |
-          echo "Creating Android emulator..."
-          echo "no" | avdmanager create avd -n test -k "system-images;android-30;default;arm64-v8a" --force
-          echo "Android emulator created successfully."
-
-      # 6. Inicia el emulador Android
-      - name: Start Android Emulator
-        run: |
-          echo "Starting Android emulator..."
-          $ANDROID_HOME/emulator/emulator -avd test -no-snapshot -no-audio -no-window &
-          adb wait-for-device
-          adb shell settings put global window_animation_scale 0
-          adb shell settings put global transition_animation_scale 0
-          adb shell settings put global animator_duration_scale 0
-          adb shell input keyevent 82
-          echo "Android emulator started successfully."
-
-      # 7. Configura Python
+      # 3. Configura Python
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
           python-version: '3.8'
 
-      # 8. Instala las dependencias del proyecto
+      # 4. Instala las dependencias del proyecto
       - name: Install dependencies
         run: |
           echo "Installing dependencies..."
@@ -74,40 +38,34 @@ jobs:
           pip install -r requirements.txt
           echo "Dependencies installed."
 
-      # 9. Descarga el archivo APK
+      # 5. Descarga el archivo APK
       - name: Download APK
         run: |
           echo "Starting APK download..."
           curl -L -o picap.apk "https://d.apkpure.com/b/XAPK/co.picap.passenger?version=latest"
           echo "APK downloaded successfully."
 
-      # 10. Espera para asegurar la descarga del APK
-      - name: Wait for APK to be downloaded
+      # 6. Instala el APK en el emulador o dispositivo
+      - name: Install APK on Emulator or Device
         run: |
-          echo "Waiting for APK to be downloaded..."
-          sleep 20
-
-      # 11. Instala el APK en el emulador
-      - name: Install APK on Emulator
-        run: |
-          echo "Installing APK on emulator..."
-          adb install picap.apk
+          echo "Installing APK on emulator or device..."
+          adb install -r picap.apk  # -r para reemplazar si ya está instalado
           echo "APK installed successfully."
 
-      # 12. Inicia el servidor de Appium
+      # 7. Inicia el servidor de Appium
       - name: Run Appium server
         run: |
           echo "Starting Appium server..."
           npm install -g appium
-          appium &
+          appium &  # Inicia Appium en segundo plano
           echo "Appium server started."
 
-      # 13. Ejecuta el caso de prueba específico
+      # 8. Ejecuta el caso de prueba específico con Appium
       - name: Run Specific Android Automation Test
         env:
           DEVICE_NAME: "Android Emulator"
           PLATFORM_VERSION: "11"
         run: |
           echo "Running test_login.py..."
-          python ./main.py
+          python .\main.py  # Cambia a tu archivo de prueba específico
           echo "Test execution completed."
