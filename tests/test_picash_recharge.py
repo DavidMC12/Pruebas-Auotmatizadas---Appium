@@ -27,7 +27,7 @@ def main(driver):
         print("Iniciando el proceso de recarga Picash...")
         # Acceder al apartado de Picash
         driver.find_element(AppiumBy.ACCESSIBILITY_ID, SELECTORS['picash_selector']).click()
-        time.sleep(1)
+        time.sleep(2)
         
         # Regacargar Picash
         print("Recargando Picash...")
