@@ -51,7 +51,7 @@ def test_login_flow(driver):  # Pytest inyectará el driver automáticamente des
 
             # Ingresar credenciales
             email_field.click()
-            email_field.send_keys('pasajero@mail.prod')
+            email_field.send_keys('pasajero3@mail.beta')
 
             password_field.click()
             password_field.send_keys('12345678')
