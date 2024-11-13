@@ -105,8 +105,8 @@ def gura_request(driver):
             
             # ! 4. Cancelación de la solicitud
             # Swipe para cancelar el servicio
-            driver.swipe(start_x=driver.get_window_size()['width'] // 2, start_y=driver.get_window_size()['height'] * 0.9, end_x=driver.get_window_size()['width'] // 2, end_y=driver.get_window_size()['height'] * 0.1, duration=500)
-            time.sleep(1)
+            driver.swipe(start_x=500, start_y=1700, end_x=500, end_y=300, duration=500)
+            time.sleep(2)
             
             # Cancelar el servicio
             cancel_service = driver.find_element(AppiumBy.ACCESSIBILITY_ID, CANCEL_SERVICE_X_ID)
@@ -120,6 +120,7 @@ def gura_request(driver):
             
             cancel_confirmation_op = driver.find_element(AppiumBy.ACCESSIBILITY_ID, CANCEL_CONFIRMATION_OP)
             cancel_confirmation_op.click()
+            driver.back()
             
             print("Servicio cancelado con éxito!!")
             time.sleep(3)

@@ -36,15 +36,15 @@ def main():
     # signup.signUp(driver)
     # service_moto_request.booking_request(driver)
     # service_motovip_request.booking_request(driver)
-    # service_pibox_request.booking_request(driver)
+    # service_pibox_request.main(driver)
     # programed_service_moto.booking_request(driver)
     # test_add_new_vehicle.addNewVehicle(driver)
     # test_chat_central.main(driver)
-    # test_grua_request.gura_request(driver)
+    test_grua_request.gura_request(driver)
     # test_bicitaxi_request.main(driver)
     # test_driver_register.main(driver)
     # test_accept_driver_services.main(driver)
-    test_picash_recharge.main(driver)
+    # test_picash_recharge.main(driver)
     # test_money_transfer_picash.main(driver)
 
     # Finalizar el driver
