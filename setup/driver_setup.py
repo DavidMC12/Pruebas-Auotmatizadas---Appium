@@ -32,22 +32,18 @@ def init_driver():
     options.platform_name = "Android"  # Plataforma objetivo
     options.automation_name = "UiAutomator2"  # Motor de automatización
     options.device_name = "Google Pixel 5"  # Cambia el dispositivo si es necesario
-    options.platform_version = "11.0"  # Versión del sistema operativo
+    options.platform_version = "12.0"  # Versión del sistema operativo
     options.app = "bs://e98b452f837e855b55455ca3a6a0091b5ca7f433"  # ID de la aplicación subida a BrowserStack
     options.project = "Picap Automation"  # Nombre opcional del proyecto
     options.build = "Build 1"  # Nombre opcional de la build
     options.name = "Test Login Flow"  # Nombre del caso de prueba
     options.new_command_timeout = 300  # Espera de 5 minutos (300 segundos)
 
-    # Recuperar credenciales desde variables de entorno
-    username = os.getenv("BROWSERSTACK_USERNAME")
-    access_key = os.getenv("BROWSERSTACK_ACCESS_KEY")
-
-    if not username or not access_key:
-        raise Exception("BrowserStack credentials not found in environment variables.")
+    username = "davidmadrid_0ljp8h"
+    access_key = "pxSyizAozTvJRgRr2hpB"
 
     # Iniciar y devolver el driver de Appium apuntando al hub de BrowserStack
-    driver = webdriver.Remote('http://hub.browserstack.com/wd/hub', options=options)
+    driver = webdriver.Remote(f"http://{username}:{access_key}@hub.browserstack.com/wd/hub", options=options)
     # driver = webdriver.Remote('http://localhost:4723', options=options) # ! Para ejecutar en local
     driver.implicitly_wait(1)  # Establecer tiempo de espera implícito
     return driver
