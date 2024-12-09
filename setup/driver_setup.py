@@ -1,3 +1,4 @@
+import os
 from appium import webdriver
 from appium.options.android import UiAutomator2Options
 
@@ -38,9 +39,12 @@ def init_driver():
     options.name = "Test Login Flow"  # Nombre del caso de prueba
     options.new_command_timeout = 300  # Espera de 5 minutos (300 segundos)
 
-    # Credenciales de BrowserStack (recuperadas de secretos en el entorno)
-    options.browserstack_user = "${{ secrets.BROWSERSTACK_USERNAME }}"
-    options.browserstack_key = "${{ secrets.BROWSERSTACK_ACCESS_KEY }}"
+    # Recuperar credenciales desde variables de entorno
+    username = os.getenv("BROWSERSTACK_USERNAME")
+    access_key = os.getenv("BROWSERSTACK_ACCESS_KEY")
+
+    if not username or not access_key:
+        raise Exception("BrowserStack credentials not found in environment variables.")
 
     # Iniciar y devolver el driver de Appium apuntando al hub de BrowserStack
     driver = webdriver.Remote('http://hub.browserstack.com/wd/hub', options=options)
