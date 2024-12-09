@@ -3,7 +3,7 @@ from appium.options.android import UiAutomator2Options
 
 def init_driver():
     # ? Configuración del dispositivo y Appium usando UiAutomator2Options
-    # ! Celular Redmi Note 13 Plus
+    # # ! Celular Redmi Note 13 Plus
     # options = UiAutomator2Options()
     # options.platform_name = "Android"
     # options.automation_name = "UiAutomator2"
@@ -14,19 +14,36 @@ def init_driver():
     # options.app_activity = "co.picap.passenger.MainActivity"
     # options.no_reset = True
     
-    # ! Celular Huawei Y9 2019
+    # # ! Celular Huawei Y9 2019
+    # options = UiAutomator2Options()
+    # options.platform_name = "Android"
+    # options.automation_name = "UiAutomator2"
+    # options.device_name = "HUAWEI Y9 2019"
+    # options.udid = "7ML4C19722005941"
+    # options.platform_version = "9"
+    # options.app_package = "co.picap.passenger"
+    # options.app_activity = "co.picap.passenger.MainActivity"
+    # options.no_reset = True
+    # options.new_command_timeout = 300  # Espera de 5 minutos (300 segundos)
+    
+    # ! Integración con BrowserStack
     options = UiAutomator2Options()
-    options.platform_name = "Android"
-    options.automation_name = "UiAutomator2"
-    options.device_name = "HUAWEI Y9 2019"
-    options.udid = "7ML4C19722005941"
-    options.platform_version = "9"
-    options.app_package = "co.picap.passenger"
-    options.app_activity = "co.picap.passenger.MainActivity"
-    options.no_reset = True
+    options.platform_name = "Android"  # Plataforma objetivo
+    options.automation_name = "UiAutomator2"  # Motor de automatización
+    options.device_name = "Google Pixel 5"  # Cambia el dispositivo si es necesario
+    options.platform_version = "11.0"  # Versión del sistema operativo
+    options.app = "bs://e98b452f837e855b55455ca3a6a0091b5ca7f433"  # ID de la aplicación subida a BrowserStack
+    options.project = "Picap Automation"  # Nombre opcional del proyecto
+    options.build = "Build 1"  # Nombre opcional de la build
+    options.name = "Test Login Flow"  # Nombre del caso de prueba
     options.new_command_timeout = 300  # Espera de 5 minutos (300 segundos)
 
-    # Iniciar y devolver el driver de Appium
-    driver = webdriver.Remote('http://localhost:4723', options=options)
-    driver.implicitly_wait(0.2)  # Establecer tiempo de espera implícito
+    # Credenciales de BrowserStack (recuperadas de secretos en el entorno)
+    options.browserstack_user = "${{ secrets.BROWSERSTACK_USERNAME }}"
+    options.browserstack_key = "${{ secrets.BROWSERSTACK_ACCESS_KEY }}"
+
+    # Iniciar y devolver el driver de Appium apuntando al hub de BrowserStack
+    driver = webdriver.Remote('http://hub.browserstack.com/wd/hub', options=options)
+    # driver = webdriver.Remote('http://localhost:4723', options=options) # ! Para ejecutar en local
+    driver.implicitly_wait(1)  # Establecer tiempo de espera implícito
     return driver

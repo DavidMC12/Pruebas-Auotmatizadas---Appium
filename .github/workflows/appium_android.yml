@@ -1,4 +1,4 @@
-name: Android Automation Tests on Local Emulator
+name: Android Automation Tests on BrowserStack
 
 on:
   push:
@@ -10,76 +10,31 @@ on:
 
 jobs:
   android-tests:
-    runs-on: self-hosted  # Usa el self-hosted runner en tu máquina local
+    runs-on: ubuntu-latest
 
     steps:
-      # 1. Configura el remote URL manualmente y clona el repositorio
-      - name: Set remote URL to HTTPS and Check Out Repository
-        run: |
-          git init
-          git remote add origin https://github.com/DavidMC12/Pruebas_Automatizadas_Appium.git
-          git fetch origin
-          git checkout main
-        env:
-          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+      # 1. Configura el repositorio
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
-      # 2. Configura Java JDK 11
-      - name: Set up JDK 11
-        uses: actions/setup-java@v2
-        with:
-          java-version: '11'
-          distribution: 'temurin'
-
-      # 3. Configura Python
+      # 2. Configura Python
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
           python-version: '3.8'
 
-      # 4. Instala las dependencias del proyecto
+      # 3. Instala las dependencias del proyecto
       - name: Install dependencies
         run: |
-          echo "Installing dependencies..."
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          echo "Dependencies installed."
 
-      # 5. Descarga el archivo APK desde Dropbox
-      - name: Download APK from Dropbox
-        run: |
-          echo "Removing any previous APK..."
-          Remove-Item -Path picap.apk -Force
-          curl -L -o picap.apk "https://www.dropbox.com/scl/fi/n5i0mnh4wm37dbn32snsd/picap.apk?rlkey=cuz3zf6jb9sytygouwao4b9l7&st=be3mv69e&dl=1"
-          echo "Downloading APK from Dropbox..."
-          echo "APK downloaded successfully."
-
-      # 6. Instala el APK en el emulador específico
-      - name: Install APK on Emulator
-        run: |
-          adb -s emulator-5554 install -t -g picap.apk  # Opción de instalación que concede permisos y permite la instalación de APKs no verificados
-          echo "Installing APK on emulator..."
-          echo "APK installed successfully on the emulator."
-
-      # 7. Verifica la instalación del APK en el emulador
-      - name: Verify APK Installation
-        run: |
-          echo "Verifying APK installation on emulator..."
-          adb -s emulator-5554 shell pm list packages | grep "co.picap.passenger" && echo "APK is installed on the emulator."
-
-      # 8. Inicia el servidor de Appium
-      - name: Run Appium server
-        run: |
-          echo "Starting Appium server..."
-          npm install -g appium
-          appium &  # Inicia Appium en segundo plano
-          echo "Appium server started."
-
-      # 9. Ejecuta el caso de prueba específico con Appium
-      - name: Run Specific Android Automation Test
+      # 4. Ejecuta pruebas en BrowserStack
+      - name: Run Android Tests on BrowserStack
         env:
-          DEVICE_NAME: "Android Emulator"
-          PLATFORM_VERSION: "11"
+          BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
+          BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
         run: |
-          echo "Running test_login.py..."
-          python .\main.py  # Cambia a tu archivo de prueba específico
-          echo "Test execution completed."
+          echo "Running tests on BrowserStack..."
+          python main.py
+          echo "Tests completed."
