@@ -1,6 +1,8 @@
 from appium.webdriver.common.appiumby import AppiumBy
 from selenium.common.exceptions import NoSuchElementException
 import time
+from helpers.device_permissions import location_permission # Importa desde el helper de permisos
+from helpers.ui_helpers import handle_popups  # Importa la función de manejo de pop-ups
 
 def main(driver):
     # Constantes
@@ -10,7 +12,6 @@ def main(driver):
     # Selectores
     SELECTORS = {
         'accept_button': 'Aceptar',
-        'location_permission_button': 'com.android.packageinstaller:id/permission_allow_button',
         'popup_close_button': 'co.picap.passenger:id/collapse_button',
         'email_field': 'new UiSelector().className("android.widget.EditText").instance(0)',
         'password_field': 'new UiSelector().className("android.widget.EditText").instance(1)',
@@ -21,24 +22,16 @@ def main(driver):
 
     try:
         print("Iniciando el flujo de login en la app...")
+        time.sleep(3)
         
         # Manejo de permisos iniciales
-        print("Validando permisos iniciales...")
-        try:
-            driver.find_element(AppiumBy.ACCESSIBILITY_ID, SELECTORS['accept_button']).click()
-            driver.find_element(AppiumBy.ID, SELECTORS['location_permission_button']).click()
-            print("Permiso de ubicación concedido.")
-        except NoSuchElementException:
-            print("No se solicitaron permisos de ubicación.")
-        time.sleep(2)
+        # #! Comentar este bloque si se ejecuta en BrowserStack
+        # print("Validando permisos iniciales...")
+        # driver.find_element(AppiumBy.ACCESSIBILITY_ID, SELECTORS['accept_button']).click()
+        # location_permission(driver)  # Llama al método del helper para manejar permisos de ubicación
 
-        # Manejo de pop-ups
-        print("Validando la presencia de pop-ups...")
-        try:
-            driver.find_element(AppiumBy.ID, SELECTORS['popup_close_button']).click()
-            print("Popup encontrado y cerrado.")
-        except NoSuchElementException:
-            print("No se encontró ningún popup.")
+        # Manejo de pop-ups (al inicio)
+        handle_popups(driver, SELECTORS['popup_close_button'])
 
         # Ingresar credenciales
         print("Ingresando credenciales...")
@@ -54,6 +47,9 @@ def main(driver):
             driver.back()  # Ocultar teclado
             print("Credenciales ingresadas correctamente.")
 
+            # Manejo de pop-ups (después de credenciales)
+            handle_popups(driver, SELECTORS['popup_close_button'])
+
             # Intentar iniciar sesión
             print("Intentando iniciar sesión...")
             login_button.click()
@@ -61,13 +57,13 @@ def main(driver):
 
             # Verificar si el login fue exitoso o si aparece un pop-up de verificación
             print("Verificando el login...")
+            handle_popups(driver, SELECTORS['popup_close_button'])  # Manejo de pop-ups antes de verificar
+
             try:
-                # Intentar localizar un elemento del home
                 if driver.find_element(AppiumBy.ACCESSIBILITY_ID, SELECTORS['home_screen']):
                     print("Login exitoso. Usuario redirigido al home.")
             except NoSuchElementException:
                 try:
-                    # Intentar localizar un elemento del pop-up de verificación
                     if driver.find_element(AppiumBy.ACCESSIBILITY_ID, SELECTORS['verification_popup']):
                         print("Login requiere verificación. Pop-up de verificación encontrado.")
                 except NoSuchElementException:

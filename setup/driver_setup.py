@@ -4,7 +4,9 @@ from appium.options.android import UiAutomator2Options
 
 def init_driver():
     # ? Configuración del dispositivo y Appium usando UiAutomator2Options
-    # # ! Celular Redmi Note 13 Plus
+    
+    # #! Localmente
+    # # Celular Redmi Note 13 Plus
     # options = UiAutomator2Options()
     # options.platform_name = "Android"
     # options.automation_name = "UiAutomator2"
@@ -15,7 +17,7 @@ def init_driver():
     # options.app_activity = "co.picap.passenger.MainActivity"
     # options.no_reset = True
     
-    # # ! Celular Huawei Y9 2019
+    # # Celular Huawei Y9 2019
     # options = UiAutomator2Options()
     # options.platform_name = "Android"
     # options.automation_name = "UiAutomator2"
@@ -27,7 +29,7 @@ def init_driver():
     # options.no_reset = True
     # options.new_command_timeout = 300  # Espera de 5 minutos (300 segundos)
     
-    # ! Integración con BrowserStack
+    #! Integración con BrowserStack
     options = UiAutomator2Options()
     options.platform_name = "Android"  # Plataforma objetivo
     options.automation_name = "UiAutomator2"  # Motor de automatización
@@ -42,12 +44,17 @@ def init_driver():
     # Configurar idioma y localización para Colombia
     options.language = "es"  # Idioma español
     options.locale = "CO"  # Localización para Colombia
-
+    options.auto_grant_permissions = True  # Otorga todos los permisos automáticamente
+    
+    # Credenciales de BrowserStack
     username = "davidmadrid_0ljp8h"
     access_key = "pxSyizAozTvJRgRr2hpB"
 
-    # Iniciar y devolver el driver de Appium apuntando al hub de BrowserStack
+    #! Iniciar y devolver el driver de Appium apuntando al hub de BrowserStack
     driver = webdriver.Remote(f"http://{username}:{access_key}@hub.browserstack.com/wd/hub", options=options)
-    # driver = webdriver.Remote('http://localhost:4723', options=options) # ! Para ejecutar en local
+    
+    #! Iniciar y devolver el driver de Appium apuntando al servidor local
+    # driver = webdriver.Remote('http://localhost:4723', options=options)
+    
     driver.implicitly_wait(1)  # Establecer tiempo de espera implícito
     return driver
