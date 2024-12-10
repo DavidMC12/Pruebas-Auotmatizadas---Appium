@@ -32,7 +32,7 @@ def main():
     # Ejecutar el proceso de login manualmente
     # test_login.test_login_flow(driver)
     # Ejecutar otros procesos comentados si es necesario
-    # test_login.test_login_flow(driver)
+    test_login.main(driver)
     # signup.signUp(driver)
     # service_moto_request.booking_request(driver)
     # service_motovip_request.booking_request(driver)
@@ -40,7 +40,7 @@ def main():
     # programed_service_moto.booking_request(driver)
     # test_add_new_vehicle.addNewVehicle(driver)
     # test_chat_central.main(driver)
-    test_grua_request.gura_request(driver)
+    # test_grua_request.gura_request(driver)
     # test_bicitaxi_request.main(driver)
     # test_driver_register.main(driver)
     # test_accept_driver_services.main(driver)

@@ -1,82 +1,80 @@
 from appium.webdriver.common.appiumby import AppiumBy
 from selenium.common.exceptions import NoSuchElementException
 import time
-import allure  # Importar Allure
-import pytest
-from setup import driver_setup as ds
 
-@pytest.fixture
-def driver():
-    driver = ds.init_driver()
-    yield driver
-    driver.quit()
-
-# Definir la función de login
-@allure.step("Login en la app")
-def test_login_flow(driver):  # Pytest inyectará el driver automáticamente desde la fixture
-    # Definir constantes para XPaths, IDs y otros selectores
-    LOCATION_PERMISSION_BUTTON_ID = "com.android.packageinstaller:id/permission_allow_button"
-    POPUP_CLOSE_BUTTON_ID = "co.picap.passenger:id/collapse_button"
+def main(driver):
+    # Constantes
+    EMAIL = 'pasajero@mail.prod'
+    PASSWORD = '12345678'
     
-    EMAIL_SELECTOR = 'new UiSelector().className("android.widget.EditText").instance(0)'
-    PASSWORD_SELECTOR = 'new UiSelector().className("android.widget.EditText").instance(1)'
-    LOGIN_BUTTON_ACCESSIBILITY_ID = "Entrar"
-    HOME_SCREEN_ACCESSIBILITY_ID = "Menú\nPestaña 1 de 3"
+    # Selectores
+    SELECTORS = {
+        'accept_button': 'Aceptar',
+        'location_permission_button': 'com.android.packageinstaller:id/permission_allow_button',
+        'popup_close_button': 'co.picap.passenger:id/collapse_button',
+        'email_field': 'new UiSelector().className("android.widget.EditText").instance(0)',
+        'password_field': 'new UiSelector().className("android.widget.EditText").instance(1)',
+        'login_button': 'Entrar',
+        'home_screen': 'Menú\nPestaña 1 de 3',
+        'verification_popup': 'Omitir'
+    }
 
     try:
-        # Manejo de permisos de ubicación
+        print("Iniciando el flujo de login en la app...")
+        
+        # Manejo de permisos iniciales
+        print("Validando permisos iniciales...")
         try:
-            driver.find_element(AppiumBy.ACCESSIBILITY_ID, "Aceptar").click()  # Modal inicial
-            driver.find_element(AppiumBy.ID, LOCATION_PERMISSION_BUTTON_ID).click()  # Permiso de ubicación
-            print("Permiso de ubicación concedido!!")
-            allure.attach(driver.get_screenshot_as_png(), name="Permiso de ubicación", attachment_type=allure.attachment_type.PNG)
+            driver.find_element(AppiumBy.ACCESSIBILITY_ID, SELECTORS['accept_button']).click()
+            driver.find_element(AppiumBy.ID, SELECTORS['location_permission_button']).click()
+            print("Permiso de ubicación concedido.")
         except NoSuchElementException:
             print("No se solicitaron permisos de ubicación.")
-        
-        time.sleep(2)  # Esperar 2 segundos
+        time.sleep(2)
 
-        # Manejo de pop-ups (si existen)
+        # Manejo de pop-ups
+        print("Validando la presencia de pop-ups...")
         try:
-            driver.find_element(AppiumBy.ID, POPUP_CLOSE_BUTTON_ID).click()
-            print("Popup encontrado y cerrado!!")
-            allure.attach(driver.get_screenshot_as_png(), name="Popup cerrado", attachment_type=allure.attachment_type.PNG)
+            driver.find_element(AppiumBy.ID, SELECTORS['popup_close_button']).click()
+            print("Popup encontrado y cerrado.")
         except NoSuchElementException:
-            print("No se encontró ningún popup. Continuando...")
+            print("No se encontró ningún popup.")
 
-        # Localizar los elementos de login
+        # Ingresar credenciales
+        print("Ingresando credenciales...")
         try:
-            email_field = driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, EMAIL_SELECTOR)
-            password_field = driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, PASSWORD_SELECTOR)
-            login_button = driver.find_element(AppiumBy.ACCESSIBILITY_ID, LOGIN_BUTTON_ACCESSIBILITY_ID)
+            email_field = driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, SELECTORS['email_field'])
+            password_field = driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, SELECTORS['password_field'])
+            login_button = driver.find_element(AppiumBy.ACCESSIBILITY_ID, SELECTORS['login_button'])
 
-            # Ingresar credenciales
             email_field.click()
-            email_field.send_keys('pasajero3@mail.beta')
-
+            email_field.send_keys(EMAIL)
             password_field.click()
-            password_field.send_keys('12345678')
-            driver.back()  # Ocultar el teclado
+            password_field.send_keys(PASSWORD)
+            driver.back()  # Ocultar teclado
+            print("Credenciales ingresadas correctamente.")
 
-            # Hacer clic en el botón de login
-            login_button.click()
+            # Intentar iniciar sesión
             print("Intentando iniciar sesión...")
-
-            # Esperar unos segundos para que el login se procese
+            login_button.click()
             time.sleep(5)
 
-            # Verificar si el login fue exitoso
+            # Verificar si el login fue exitoso o si aparece un pop-up de verificación
+            print("Verificando el login...")
             try:
-                driver.find_element(AppiumBy.ACCESSIBILITY_ID, HOME_SCREEN_ACCESSIBILITY_ID)
-                print("Login exitoso. Elemento de pantalla principal encontrado!!")
-                allure.attach(driver.get_screenshot_as_png(), name="Login exitoso", attachment_type=allure.attachment_type.PNG)
+                # Intentar localizar un elemento del home
+                if driver.find_element(AppiumBy.ACCESSIBILITY_ID, SELECTORS['home_screen']):
+                    print("Login exitoso. Usuario redirigido al home.")
             except NoSuchElementException:
-                print("Login fallido o no se encontró el elemento de la pantalla principal.")
-                allure.attach(driver.get_screenshot_as_png(), name="Login fallido", attachment_type=allure.attachment_type.PNG)
-
-        except NoSuchElementException as e:
-            print(f"Error al intentar localizar un elemento de login: {e}.")
-            allure.attach(driver.get_screenshot_as_png(), name="Error en login", attachment_type=allure.attachment_type.PNG)
-    
+                try:
+                    # Intentar localizar un elemento del pop-up de verificación
+                    if driver.find_element(AppiumBy.ACCESSIBILITY_ID, SELECTORS['verification_popup']):
+                        print("Login requiere verificación. Pop-up de verificación encontrado.")
+                except NoSuchElementException:
+                    print("Login fallido o no se encontró el elemento esperado (home o pop-up).")
+        except NoSuchElementException:
+            print("Error al localizar los elementos de login.")
     except Exception as e:
         print(f"Error al ejecutar el caso de prueba: {e}.")
-        allure.attach(driver.get_screenshot_as_png(), name="Error general", attachment_type=allure.attachment_type.PNG)
+    finally:
+        print("Finalizando el caso de prueba.")
