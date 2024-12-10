@@ -45,6 +45,7 @@ def init_driver():
     options.language = "es"  # Idioma español
     options.locale = "CO"  # Localización para Colombia
     options.auto_grant_permissions = True  # Otorga todos los permisos automáticamente
+    options.set_capability("browserstack.gpsLocation", "4.710989,-74.072092")  # Bogotá, Colombia
     
     # Credenciales de BrowserStack
     username = "davidmadrid_0ljp8h"
