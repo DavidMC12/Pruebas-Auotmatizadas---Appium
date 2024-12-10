@@ -35,7 +35,7 @@ def init_driver():
     options.automation_name = "UiAutomator2"  # Motor de automatización
     options.device_name = "Google Pixel 5"  # Cambia el dispositivo si es necesario
     options.platform_version = "12.0"  # Versión del sistema operativo
-    options.app = "bs://e98b452f837e855b55455ca3a6a0091b5ca7f433"  # ID de la aplicación subida a BrowserStack
+    options.app = "bs://8aa213720fbddfdafaaf6faaa52d34b18c33c1e1"  # ID de la aplicación subida a BrowserStack
     options.project = "Picap Automation"  # Nombre opcional del proyecto
     options.build = "Build 1"  # Nombre opcional de la build
     options.name = "Test Login Flow"  # Nombre del caso de prueba
