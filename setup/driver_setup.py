@@ -38,6 +38,10 @@ def init_driver():
     options.build = "Build 1"  # Nombre opcional de la build
     options.name = "Test Login Flow"  # Nombre del caso de prueba
     options.new_command_timeout = 300  # Espera de 5 minutos (300 segundos)
+    
+    # Configurar idioma y localización para Colombia
+    options.language = "es"  # Idioma español
+    options.locale = "CO"  # Localización para Colombia
 
     username = "davidmadrid_0ljp8h"
     access_key = "pxSyizAozTvJRgRr2hpB"
