@@ -11,7 +11,6 @@ def main(driver):
     
     # Selectores
     SELECTORS = {
-        'accept_button': 'Aceptar',
         'popup_close_button': 'co.picap.passenger:id/collapse_button',
         'email_field': 'new UiSelector().className("android.widget.EditText").instance(0)',
         'password_field': 'new UiSelector().className("android.widget.EditText").instance(1)',
@@ -27,7 +26,6 @@ def main(driver):
         # Manejo de permisos iniciales
         # #! Comentar este bloque si se ejecuta en BrowserStack
         # print("Validando permisos iniciales...")
-        # driver.find_element(AppiumBy.ACCESSIBILITY_ID, SELECTORS['accept_button']).click()
         # location_permission(driver)  # Llama al método del helper para manejar permisos de ubicación
 
         # Manejo de pop-ups (al inicio)
@@ -74,4 +72,4 @@ def main(driver):
         print(f"Error al ejecutar el caso de prueba: {e}.")
     finally:
         print("Finalizando el caso de prueba.")
-        driver.quit()
+        driver.quit() # Cerrar el driver al finalizar en la nube

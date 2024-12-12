@@ -32,8 +32,8 @@ def main():
     # Ejecutar el proceso de login manualmente
     # test_login.test_login_flow(driver)
     # Ejecutar otros procesos comentados si es necesario
-    test_login.main(driver)
-    # signup.signUp(driver)
+    # test_login.main(driver)
+    signup.main(driver)
     # service_moto_request.booking_request(driver)
     # service_motovip_request.booking_request(driver)
     # service_pibox_request.main(driver)

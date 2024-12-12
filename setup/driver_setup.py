@@ -37,8 +37,8 @@ def init_driver():
     options.platform_version = "12.0"  # Versión del sistema operativo
     options.app = "bs://8aa213720fbddfdafaaf6faaa52d34b18c33c1e1"  # ID de la aplicación subida a BrowserStack
     options.project = "Picap Automation"  # Nombre opcional del proyecto
-    options.build = "Build 1"  # Nombre opcional de la build
-    options.name = "Test Login Flow"  # Nombre del caso de prueba
+    options.build = "Build 2"  # Nombre opcional de la build
+    options.name = "Register Flow"  # Nombre del caso de prueba
     options.new_command_timeout = 300  # Espera de 5 minutos (300 segundos)
     
     # Configurar idioma y localización para Colombia

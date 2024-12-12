@@ -2,6 +2,7 @@ from appium.webdriver.common.appiumby import AppiumBy
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import time
 
 # Constantes
 TIMEOUT = 10
@@ -42,6 +43,8 @@ def location_permission(driver):
     Args:
         driver: instancia del WebDriver de Appium.
     """
+    driver.find_element(AppiumBy.ACCESSIBILITY_ID, 'Aceptar').click()
+    time.sleep(2)
     handle_permission(driver, SELECTORS['location_permission_button'], "ubicación")
 
 #! Función para permisos de teléfono
@@ -52,4 +55,5 @@ def phone_permission(driver):
     Args:
         driver: instancia del WebDriver de Appium.
     """
+    time.sleep(1)
     handle_permission(driver, SELECTORS['phone_permission_button'], "teléfono")
