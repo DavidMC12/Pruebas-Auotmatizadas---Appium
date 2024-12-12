@@ -31,10 +31,10 @@ def main(driver):
     try:
         print("Iniciando el proceso de registro...")
         
-        # Manejo de permisos iniciales
-        #! Comentar este bloque si se ejecuta en BrowserStack
-        print("Validando permisos iniciales...")
-        location_permission(driver)  # Llama al método del helper para manejar permisos de ubicación
+        # # Manejo de permisos iniciales
+        # #! Comentar este bloque si se ejecuta en BrowserStack
+        # print("Validando permisos iniciales...")
+        # location_permission(driver)  # Llama al método del helper para manejar permisos de ubicación
 
         # Localizar y hacer clic en el botón de registro
         print("Intentando acceder a la sección de registro...")
@@ -46,9 +46,10 @@ def main(driver):
             print("No se encontró el botón de registro. Finalizando...")
             sys.exit(1)
 
-        # Manejo de permisos adicionales
-        print("Validando permisos adicionales...")
-        phone_permission(driver)
+        # # Manejo de permisos adicionales
+        # #! Comentar este bloque si se ejecuta en BrowserStack
+        # print("Validando permisos adicionales...")
+        # phone_permission(driver)
 
         # Manejo de pop-ups posteriores
         handle_popups(driver, SELECTORS["popup_close_button"])
