@@ -72,4 +72,4 @@ def main(driver):
         print(f"Error al ejecutar el caso de prueba: {e}.")
     finally:
         print("Finalizando el caso de prueba.")
-        driver.quit() # Cerrar el driver al finalizar en la nube
+        # driver.quit() # Cierra el driver al finalizar, descomentar para ejecutar en la nube

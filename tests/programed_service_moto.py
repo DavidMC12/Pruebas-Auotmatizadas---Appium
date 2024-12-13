@@ -176,4 +176,4 @@ def booking_request(driver):
         print(f"Error al ejecutar el caso de prueba: {e}.")
     finally:
         print("Finalizando el caso de prueba.")
-        #driver.quit()
+        # driver.quit() # Cierra el driver al finalizar, descomentar para ejecutar en la nube
