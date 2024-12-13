@@ -5,7 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 import time
 import sys
 from helpers.device_permissions import location_permission, phone_permission
-from helpers.ui_helpers import handle_popups
+from helpers.ui_helpers import handle_popups, tap_screen
 
 # Selectores
 SELECTORS = {
@@ -59,9 +59,9 @@ def main(driver):
         fields = {
             "name": (SELECTORS["name_field"], "Usuario Prueba"),
             "last_name": (SELECTORS["last_name_field"], "Automatizado Prod"),
-            "email": (SELECTORS["email_field"], "u.aut9@mail.prod"),
+            "email": (SELECTORS["email_field"], "u.aut15@mail.prod"),
             "password": (SELECTORS["password_field"], "123456"),
-            "phone": (SELECTORS["phone_field"], "3214445559"),
+            "phone": (SELECTORS["phone_field"], "3214445515"),
         }
 
         for key, (selector, value) in fields.items():
@@ -78,6 +78,7 @@ def main(driver):
         driver.swipe(start_x=500, start_y=1500, end_x=500, end_y=130, duration=180)
         driver.find_element(AppiumBy.ACCESSIBILITY_ID, SELECTORS["colombia"]).click()
         driver.back()
+        time.sleep(2)
 
         # Seleccionar sexo
         print("Seleccionando sexo...")
@@ -97,7 +98,8 @@ def main(driver):
         except NoSuchElementException:
             print("No se encontró ningún popup de verificación. Continuando...")
         time.sleep(1)
-        driver.tap([(500, 2020)], 100)
+        tap_screen(driver, 0.5, 0.86) # Toca la pantalla para cerrar el segundo banner de verificación
+        time.sleep(1)
 
         # Verificar éxito del registro
         print("Verificando si el registro fue exitoso...")
