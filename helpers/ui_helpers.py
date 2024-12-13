@@ -21,6 +21,7 @@ def handle_popups(driver, selector):
 def tap_screen(driver, x_ratio, y_ratio):
     """
     Realiza un toque en la pantalla basado en proporciones relativas al tamaño del dispositivo.
+    Imprime en consola las coordenadas calculadas para depuración.
 
     Args:
         driver: Instancia del Appium WebDriver.
@@ -31,4 +32,5 @@ def tap_screen(driver, x_ratio, y_ratio):
     height = driver.get_window_size()['height']
     x = int(width * x_ratio)
     y = int(height * y_ratio)
+    print(f"Clic en coordenadas: ({x}, {y})")
     driver.tap([(x, y)])
