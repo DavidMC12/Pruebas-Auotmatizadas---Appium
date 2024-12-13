@@ -98,8 +98,8 @@ def main(driver):
             print("Popups de verificación cerrado.")
         except NoSuchElementException:
             print("No se encontró ningún popup de verificación. Continuando...")
-        time.sleep(1)
-        tap_screen(driver, 0.5, 0.86) # Toca la pantalla para cerrar el segundo banner de verificación
+        time.sleep(2)
+        tap_screen(driver, 0.5, 0.87) # Toca la pantalla para cerrar el segundo banner de verificación
         time.sleep(1)
 
         # Verificar éxito del registro
