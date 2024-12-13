@@ -59,9 +59,9 @@ def main(driver):
         fields = {
             "name": (SELECTORS["name_field"], "Usuario Prueba"),
             "last_name": (SELECTORS["last_name_field"], "Automatizado Prod"),
-            "email": (SELECTORS["email_field"], "u.aut16@mail.prod"),
+            "email": (SELECTORS["email_field"], "u.aut17@mail.prod"),
             "password": (SELECTORS["password_field"], "123456"),
-            "phone": (SELECTORS["phone_field"], "3214445516"),
+            "phone": (SELECTORS["phone_field"], "3214445517"),
         }
 
         for key, (selector, value) in fields.items():
@@ -99,7 +99,7 @@ def main(driver):
         except NoSuchElementException:
             print("No se encontró ningún popup de verificación. Continuando...")
         time.sleep(2)
-        tap_screen(driver, 0.5, 0.87) # Toca la pantalla para cerrar el segundo banner de verificación
+        tap_screen(driver, 0.5, 0.867) # Toca la pantalla para cerrar el segundo banner de verificación
         time.sleep(1)
 
         # Verificar éxito del registro

@@ -27,4 +27,8 @@ def tap_screen(driver, x_ratio, y_ratio):
         x_ratio (float): Proporción horizontal (0.0 a 1.0) donde 0.0 es el borde izquierdo y 1.0 es el borde derecho.
         y_ratio (float): Proporción vertical (0.0 a 1.0) donde 0.0 es el borde superior y 1.0 es el borde inferior.
     """
-    driver.tap([(int(driver.get_window_size()['width'] * x_ratio), int(driver.get_window_size()['height'] * y_ratio))])
+    width = driver.get_window_size()['width']
+    height = driver.get_window_size()['height']
+    x = int(width * x_ratio)
+    y = int(height * y_ratio)
+    driver.tap([(x, y)])
