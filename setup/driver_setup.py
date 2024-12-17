@@ -33,7 +33,7 @@ def init_driver():
     options = UiAutomator2Options()
     options.platform_name = "Android"  # Plataforma objetivo
     options.automation_name = "UiAutomator2"  # Motor de automatización
-    options.device_name = "OnePlus 9"  # Cambia el dispositivo si es necesario
+    options.device_name = "Xiaomi Mi Note 10 Pro"  # Cambia el dispositivo si es necesario
     options.platform_version = "11.0"  # Versión del sistema operativo
     options.app = "bs://8aa213720fbddfdafaaf6faaa52d34b18c33c1e1"  # ID de la aplicación subida a BrowserStack
     options.project = "Picap Automation"  # Nombre opcional del proyecto
