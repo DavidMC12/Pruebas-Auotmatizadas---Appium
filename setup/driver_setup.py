@@ -5,7 +5,7 @@ from appium.options.android import UiAutomator2Options
 def init_driver():
     # ? Configuración del dispositivo y Appium usando UiAutomator2Options
     
-    # #! Localmente
+    #! Localmente
     # # Celular Redmi Note 13 Plus
     # options = UiAutomator2Options()
     # options.platform_name = "Android"
@@ -26,7 +26,7 @@ def init_driver():
     # options.platform_version = "9"
     # options.app_package = "co.picap.passenger"
     # options.app_activity = "co.picap.passenger.MainActivity"
-    # options.no_reset = True
+    # options.no_reset = False
     # options.new_command_timeout = 300  # Espera de 5 minutos (300 segundos)
     
     #! Integración con BrowserStack
