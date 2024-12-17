@@ -59,9 +59,9 @@ def main(driver):
         fields = {
             "name": (SELECTORS["name_field"], "Usuario Prueba"),
             "last_name": (SELECTORS["last_name_field"], "Automatizado Prod"),
-            "email": (SELECTORS["email_field"], "u.aut18@mail.prod"),
+            "email": (SELECTORS["email_field"], "u.aut19@mail.prod"),
             "password": (SELECTORS["password_field"], "123456"),
-            "phone": (SELECTORS["phone_field"], "3214445518"),
+            "phone": (SELECTORS["phone_field"], "3214445519"),
         }
 
         for key, (selector, value) in fields.items():
