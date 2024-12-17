@@ -72,14 +72,14 @@ def main(driver):
             if key != "password":
                 driver.back()
 
-        # Seleccionar región
-        print("Seleccionando región...")
-        driver.find_element(AppiumBy.ACCESSIBILITY_ID, SELECTORS["region_list"]).click()
-        time.sleep(1)
-        driver.swipe(start_x=500, start_y=1500, end_x=500, end_y=130, duration=180)
-        driver.find_element(AppiumBy.ACCESSIBILITY_ID, SELECTORS["colombia"]).click()
-        driver.back()
-        time.sleep(1)
+        # # Seleccionar región
+        # print("Seleccionando región...") #! Deprecated online
+        # driver.find_element(AppiumBy.ACCESSIBILITY_ID, SELECTORS["region_list"]).click()
+        # time.sleep(1)
+        # driver.swipe(start_x=500, start_y=1500, end_x=500, end_y=130, duration=180)
+        # driver.find_element(AppiumBy.ACCESSIBILITY_ID, SELECTORS["colombia"]).click()
+        # driver.back()
+        # time.sleep(1)
 
         # Seleccionar sexo
         print("Seleccionando sexo...")
