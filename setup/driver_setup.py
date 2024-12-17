@@ -33,7 +33,7 @@ def init_driver():
     options = UiAutomator2Options()
     options.platform_name = "Android"  # Plataforma objetivo
     options.automation_name = "UiAutomator2"  # Motor de automatización
-    options.device_name = "Samsung Galaxy A51"  # Cambia el dispositivo si es necesario
+    options.device_name = "Samsung Galaxy A11"  # Cambia el dispositivo si es necesario
     options.platform_version = "10.0"  # Versión del sistema operativo
     options.app = "bs://8aa213720fbddfdafaaf6faaa52d34b18c33c1e1"  # ID de la aplicación subida a BrowserStack
     options.project = "Picap Automation"  # Nombre opcional del proyecto
