@@ -71,6 +71,7 @@ def main(driver):
             print(f"{key.capitalize()} ingresado: {value}")
             if key != "password":
                 driver.back()
+        time.sleep(1)
 
         # # Seleccionar región
         # print("Seleccionando región...") #! Deprecated online
