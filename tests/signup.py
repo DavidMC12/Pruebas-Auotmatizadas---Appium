@@ -31,6 +31,7 @@ def main(driver):
     try:
         print("Iniciando el proceso de registro...")
         time.sleep(30) # Espera inicial para cargar la app
+        
         # # Manejo de permisos iniciales
         # #! Comentar este bloque si se ejecuta en BrowserStack
         # print("Validando permisos iniciales...")

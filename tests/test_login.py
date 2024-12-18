@@ -24,9 +24,9 @@ def main(driver):
         time.sleep(3)
         
         # Manejo de permisos iniciales
-        # #! Comentar este bloque si se ejecuta en BrowserStack
-        # print("Validando permisos iniciales...")
-        # location_permission(driver)  # Llama al método del helper para manejar permisos de ubicación
+        #! Comentar este bloque si se ejecuta en BrowserStack
+        print("Validando permisos iniciales...")
+        location_permission(driver)  # Llama al método del helper para manejar permisos de ubicación
 
         # Manejo de pop-ups (al inicio)
         handle_popups(driver, SELECTORS['popup_close_button'])
@@ -63,7 +63,8 @@ def main(driver):
             except NoSuchElementException:
                 try:
                     if driver.find_element(AppiumBy.ACCESSIBILITY_ID, SELECTORS['verification_popup']):
-                        print("Login requiere verificación. Pop-up de verificación encontrado.")
+                        driver.find_element(AppiumBy.ACCESSIBILITY_ID, SELECTORS['verification_popup']).click()
+                        print("Login exitoso. Pop-up de verificación cerrado.")
                 except NoSuchElementException:
                     print("Login fallido o no se encontró el elemento esperado (home o pop-up).")
         except NoSuchElementException:
