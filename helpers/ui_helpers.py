@@ -29,13 +29,26 @@ def tap_screen(driver, x_ratio, y_ratio):
         x_ratio (float): Proporción horizontal (0.0 a 1.0) donde 0.0 es el borde izquierdo y 1.0 es el borde derecho.
         y_ratio (float): Proporción vertical (0.0 a 1.0) donde 0.0 es el borde superior y 1.0 es el borde inferior.
     """
-    width = driver.get_window_size()['width']
-    height = driver.get_window_size()['height']
+    # Obtener el tamaño de la pantalla
+    screen_size = driver.get_window_size()
+    width = screen_size['width']
+    height = screen_size['height']
+
+    # Validar que las proporciones estén en el rango [0.0, 1.0]
+    if not (0.0 <= x_ratio <= 1.0) or not (0.0 <= y_ratio <= 1.0):
+        raise ValueError("Las proporciones x_ratio y y_ratio deben estar entre 0.0 y 1.0")
+
+    # Calcular coordenadas basadas en proporciones
     x = int(width * x_ratio)
     y = int(height * y_ratio)
-    print(f"Clic en coordenadas: ({x}, {y})")
+
+    # Imprimir las coordenadas calculadas (para depuración)
+    print(f"Tamaño de pantalla: {width}x{height}")
+    print(f"Realizando clic en coordenadas relativas: ({x}, {y})")
+
+    # Realizar tap en las coordenadas calculadas
     driver.tap([(x, y)])
-    
+
 #! Función para tocar la pantalla en forma de circunferencia
 def tap_circle(driver, x_center_ratio, y_center_ratio, radius_ratio, num_points=36):
     """
