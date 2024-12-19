@@ -41,15 +41,15 @@ def init_driver():
     options.name = "Register Flow"  # Nombre del caso de prueba
     options.new_command_timeout = 300  # Espera de 5 minutos (300 segundos)
     
-    # Configurar idioma y localización para Colombia
+    # Configurar idioma y localización para Colombia (Adicionales)
     options.language = "es"  # Idioma español
     options.locale = "CO"  # Localización para Colombia
     options.auto_grant_permissions = True  # Otorga todos los permisos automáticamente
     options.set_capability("browserstack.gpsLocation", "4.710989,-74.072092")  # Bogotá, Colombia
     
     # Credenciales de BrowserStack
-    username = "davidmadrid_0ljp8h"
-    access_key = "pxSyizAozTvJRgRr2hpB"
+    username = "julianaleal_N6O8hI"
+    access_key = "zUYoXcuZQsHZpMbEqmsv"
 
     #! Iniciar y devolver el driver de Appium apuntando al hub de BrowserStack
     driver = webdriver.Remote(f"http://{username}:{access_key}@hub.browserstack.com/wd/hub", options=options)
