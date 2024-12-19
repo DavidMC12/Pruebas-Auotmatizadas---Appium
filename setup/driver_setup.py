@@ -35,7 +35,7 @@ def init_driver():
     options.automation_name = "UiAutomator2"  # Motor de automatización
     options.device_name = "Vivo Y21"  # Cambia el dispositivo si es necesario 
     options.platform_version = "11.0"  # Versión del sistema operativo
-    options.app = "bs://8aa213720fbddfdafaaf6faaa52d34b18c33c1e1"  # ID de la aplicación subida a BrowserStack
+    options.app = "bs://169a996b431e6998463e2b7570378896e0e3078f"  # ID de la aplicación subida a BrowserStack
     options.project = "Picap Automation"  # Nombre opcional del proyecto
     options.build = "Build 2"  # Nombre opcional de la build
     options.name = "Register Flow"  # Nombre del caso de prueba
