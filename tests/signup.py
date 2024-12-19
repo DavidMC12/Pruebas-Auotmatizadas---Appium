@@ -102,7 +102,7 @@ def main(driver):
             print("No se encontró ningún popup de verificación. Continuando...")
         time.sleep(2)
         # tap_circle(driver, x_center_ratio=0.49, y_center_ratio=0.87, radius_ratio=0.05, num_points=3) # Toca la pantalla para cerrar el segundo banner de verificación
-        tap_screen(driver, x_ratio=0.5, y_ratio=0.818) # Toca la pantalla para cerrar el segundo banner de verificación
+        tap_screen(driver, x_ratio=0.5, y_ratio=0.9) # Toca la pantalla para cerrar el segundo banner de verificación
         time.sleep(1)
 
         # Verificar éxito del registro
