@@ -1,6 +1,6 @@
 from appium.webdriver.common.appiumby import AppiumBy
 from selenium.common.exceptions import NoSuchElementException
-import math
+import math, time
 
 #! Función para manejar pop-ups
 def handle_popups(driver, selector):
@@ -81,3 +81,61 @@ def tap_circle(driver, x_center_ratio, y_center_ratio, radius_ratio, num_points=
         y = int(y_center + radius * math.sin(angle))
         print(f"Tap en coordenadas: ({x}, {y})")  # Para depuración
         driver.tap([(x, y)])
+
+# ! Función para deslizar y cancelar un servicio
+def cancel_service_flow(driver, swipe_duration=500, sleep_time=1):
+    """
+    Realiza el flujo para cancelar un servicio en la aplicación móvil.
+
+    Args:
+        driver: Instancia del controlador de Appium.
+        swipe_duration (int): Duración del gesto de swipe en milisegundos (opcional, default: 500).
+        sleep_time (int): Tiempo de espera entre interacciones en segundos (opcional, default: 1).
+
+    Raises:
+        NoSuchElementException: Si algún elemento no se encuentra en el flujo.
+    """
+    # Constantes de selectores
+    SELECTORS = {
+        "cancel_service": "Cancelar viaje",
+        "testing_app_op": "Solo probando la aplicación",
+        "cancel_service_button": "Cancelar servicio",
+        "cancel_confirmation_op": "Aceptar",
+    }
+
+    try:
+        # Realizar swipe para cancelar el servicio
+        window_size = driver.get_window_size()
+        start_x = window_size['width'] // 2
+        start_y = int(window_size['height'] * 0.9)
+        end_x = start_x
+        end_y = int(window_size['height'] * 0.1)
+
+        print(f"Realizando swipe desde ({start_x}, {start_y}) hasta ({end_x}, {end_y})")
+        driver.swipe(start_x=start_x, start_y=start_y, end_x=end_x, end_y=end_y, duration=swipe_duration)
+        time.sleep(sleep_time)
+        print("Swipe realizado con éxito.")
+
+        # Cancelar el servicio
+        cancel_service_button = driver.find_element(AppiumBy.ACCESSIBILITY_ID, SELECTORS["cancel_service"])
+        cancel_service_button.click()
+        time.sleep(sleep_time)
+
+        # Operación adicional en la app
+        testing_app_op_button = driver.find_element(AppiumBy.ACCESSIBILITY_ID, SELECTORS["testing_app_op"])
+        testing_app_op_button.click()
+        time.sleep(sleep_time)
+
+        # Confirmar cancelación del servicio
+        cancel_service_confirm_button = driver.find_element(AppiumBy.ACCESSIBILITY_ID, SELECTORS["cancel_service_button"])
+        cancel_service_confirm_button.click()
+        time.sleep(sleep_time)
+
+        # Confirmar la acción final
+        cancel_confirmation_button = driver.find_element(AppiumBy.ACCESSIBILITY_ID, SELECTORS["cancel_confirmation_op"])
+        cancel_confirmation_button.click()
+        time.sleep(sleep_time)
+        print("Servicio cancelado con éxito.")
+
+    except NoSuchElementException as e:
+        raise NoSuchElementException(f"Error al localizar un elemento durante el flujo de cancelación: {str(e)}")

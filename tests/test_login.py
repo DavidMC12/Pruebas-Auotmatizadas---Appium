@@ -23,10 +23,10 @@ def main(driver):
         print("Iniciando el flujo de login en la app...")
         time.sleep(3)
         
-        # Manejo de permisos iniciales
-        #! Comentar este bloque si se ejecuta en BrowserStack
-        print("Validando permisos iniciales...")
-        location_permission(driver)  # Llama al método del helper para manejar permisos de ubicación
+        # # Manejo de permisos iniciales
+        # #! Comentar este bloque si se ejecuta en BrowserStack
+        # print("Validando permisos iniciales...")
+        # location_permission(driver)  # Llama al método del helper para manejar permisos de ubicación
 
         # Manejo de pop-ups (al inicio)
         handle_popups(driver, SELECTORS['popup_close_button'])

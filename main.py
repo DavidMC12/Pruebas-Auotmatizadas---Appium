@@ -2,6 +2,7 @@ import pytest
 import allure
 from setup import driver_setup as ds
 from tests import test_money_transfer_picash, test_picash_recharge, test_accept_driver_services, test_driver_register, test_bicitaxi_request, test_grua_request, test_chat_central, test_add_new_vehicle, service_moto_request, service_motovip_request, signup, service_pibox_request, programed_service_moto, test_login
+from tests.e2e import bike_request_flow
 
 # Función principal, no para pytest, solo para ejecución manual
 def main():
@@ -12,7 +13,7 @@ def main():
     # test_login.test_login_flow(driver)
     # Ejecutar otros procesos comentados si es necesario
     # test_login.main(driver)
-    signup.main(driver)
+    # signup.main(driver)
     # service_moto_request.booking_request(driver)
     # service_motovip_request.booking_request(driver)
     # service_pibox_request.main(driver)
@@ -25,6 +26,9 @@ def main():
     # test_accept_driver_services.main(driver)
     # test_picash_recharge.main(driver)
     # test_money_transfer_picash.main(driver)
+    
+    # Pruebas e2e
+    bike_request_flow.e2e_login_and_service_flow(driver)
 
     # Finalizar el driver
     # driver.quit()
